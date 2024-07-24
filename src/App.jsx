@@ -1,3 +1,4 @@
+import Posts from './features/posts/Posts'
 import './App.css'
 
 export default function App() {
