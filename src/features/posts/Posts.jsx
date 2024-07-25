@@ -1,12 +1,20 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { likeButtonPressed } from './postSlice'
+import { fetchPosts, likeButtonPressed } from './postSlice'
+import { useEffect } from 'react'
+
 
 const Posts = () => {
   const dispatch = useDispatch()
-  const posts = useSelector((state) => state.posts)
+  const { posts, status, error } = useSelector((state) => state)
+
+  useEffect(() => {
+    dispatch(fetchPosts())
+  }, [])
   
   return (
     <div>
+      {status === "loading" && <p>Loading...</p>}
+      {error && <p>{error}</p>}
       {posts.posts.map(post => (
       <div key={post.postId}>
         <p>{post.caption}</p>
